@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Adrián Lizárraga Scott: Senior Mobile & Product Engineer. React Native, TypeScript and AI-powered apps.">
+<title>Adrián Lizárraga Scott</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column (~760px) with wider "work" bands; each project = context → evidence (diagram/code) → decisions. */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --fg: #12161c;
+  --muted: #5a6472;
+  --line: #dde1e7;
+  --accent: #2b55d6;
+  --accent-soft: #e6ecfc;
+  --code-bg: #0f141b;
+  --code-fg: #d7dde6;
+  --code-key: #8fb4ff;
+  --code-str: #9ad3b3;
+  --code-com: #7d8796;
+  --ok: #1f8a5b;
+  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d1116; --surface: #151b23; --fg: #e8ecf1; --muted: #9aa5b3; --line: #253040;
+    --accent: #7c9cff; --accent-soft: #1b2540; --code-bg: #0a0e13; --code-fg: #d7dde6;
+    --code-key: #8fb4ff; --code-str: #9ad3b3; --code-com: #7d8796; --ok: #4cc58c; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d1116; --surface: #151b23; --fg: #e8ecf1; --muted: #9aa5b3; --line: #253040;
+  --accent: #7c9cff; --accent-soft: #1b2540; --code-bg: #0a0e13; --code-fg: #d7dde6;
+  --code-key: #8fb4ff; --code-str: #9ad3b3; --code-com: #7d8796; --ok: #4cc58c; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body);
+  font-size: 16px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 860px; margin: 0 auto; padding-block: 56px 72px; display: grid; gap: 72px; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.15; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); letter-spacing: -0.035em; font-weight: 600; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 1.9rem); letter-spacing: -0.025em; font-weight: 600; }
+h3 { font-size: 1.15rem; }
+p { margin: 0; max-width: 68ch; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.eyebrow { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.stack { display: grid; gap: 16px; }
+.lead { font-size: 1.15rem; color: var(--muted); max-width: 60ch; }
+
+/* Hero */
+.hero { display: grid; gap: 20px; }
+.role { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent); font-weight: 600; }
+.links { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip-link { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); text-decoration: none; font-weight: 500; font-size: 0.92rem; }
+.chip-link:hover { border-color: var(--accent); color: var(--accent); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); }
+.facts b { color: var(--fg); font-weight: 500; }
+
+/* Shipped */
+.jobs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.job { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.job .meta { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); }
+.job ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+.metric { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.metric small { font-family: var(--font-body); font-size: 0.85rem; font-weight: 400; color: var(--muted); display: block; }
+.metrics { display: flex; flex-wrap: wrap; gap: 24px; }
+
+/* Project */
+.project { display: grid; gap: 22px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-family: var(--font-mono); font-size: 0.75rem; padding: 3px 9px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+
+/* Flow diagram */
+.flow { overflow-x: auto; }
+.flow-row { display: flex; align-items: stretch; gap: 0; min-width: 640px; }
+.node { flex: 1; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; gap: 4px; align-content: start; }
+.node b { font-family: var(--font-display); font-size: 0.95rem; }
+.node span { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+.node.hl { border-color: var(--accent); }
+.arrow { flex: 0 0 28px; display: grid; place-items: center; color: var(--muted); font-family: var(--font-mono); }
+
+/* Trace: input → output */
+.trace { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 12px; align-items: center; }
+.trace .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px; min-width: 0; }
+.trace .lbl { font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+.trace .say { font-size: 1.05rem; font-style: italic; }
+.trace pre { margin: 0; font-family: var(--font-mono); font-size: 0.82rem; white-space: pre-wrap; }
+.trace .to { font-family: var(--font-mono); color: var(--accent); }
+
+/* Code */
+.code { background: var(--code-bg); color: var(--code-fg); border-radius: 12px; overflow: hidden; }
+.code-head { display: flex; justify-content: space-between; gap: 12px; padding: 10px 16px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--code-com); border-bottom: 1px solid #ffffff14; flex-wrap: wrap; }
+.code pre { margin: 0; padding: 16px; overflow-x: auto; font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6; }
+.k { color: var(--code-key); } .s { color: var(--code-str); } .c { color: var(--code-com); }
+
+/* Decisions */
+.decisions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 28px; }
+.decision { display: grid; gap: 4px; min-width: 0; }
+.decision h3 { font-size: 1rem; }
+.decision p { color: var(--muted); font-size: 0.95rem; }
+.next { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; color: var(--muted); font-size: 0.95rem; }
+
+/* Agents doc excerpt */
+.doc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.7; overflow-x: auto; }
+.doc .h { color: var(--accent); font-weight: 500; }
+
+.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.skills div { display: grid; gap: 6px; min-width: 0; }
+.skills p { color: var(--muted); font-size: 0.93rem; }
+/* Phone demos */
+.phone { margin: 0; width: 100%; max-width: 230px; display: grid; gap: 8px; justify-items: center; }
+.phone .screen { width: 100%; aspect-ratio: 9 / 20; border-radius: 28px; border: 7px solid #111318; background: #000; overflow: hidden; box-shadow: 0 10px 30px -12px #0006; }
+.phone video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.phone figcaption { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-align: center; }
+.showcase { display: grid; grid-template-columns: minmax(0, 1fr) 230px; gap: 32px; align-items: start; }
+.job .phone { max-width: 180px; justify-self: center; }
+
+hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
+footer { color: var(--muted); font-size: 0.9rem; display: grid; gap: 10px; }
+
+@media (max-width: 680px) {
+  .jobs, .decisions, .skills, .showcase { grid-template-columns: 1fr; }
+  .showcase .phone { justify-self: center; }
+  .trace { grid-template-columns: 1fr; }
+  .trace .to { transform: rotate(90deg); justify-self: center; }
+  .wrap { gap: 56px; padding-block: 36px 56px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chip-link { transition: border-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+
+  <header class="hero">
+    <span class="eyebrow">Mazatlán, México · Remote · UTC−7</span>
+    <h1>Adrián Lizárraga Scott</h1>
+    <div class="role">Senior Mobile &amp; Product Engineer</div>
+    <p class="lead">I build mobile products people rely on: real-time earthquake alerts for 2M+ users, identity and sign-up flows at a crypto platform with 10M+ users, and AI-powered apps built end to end. React Native and TypeScript first, native Kotlin and Swift when the platform calls for it.</p>
+    <div class="links">
+      <a class="chip-link" href="https://www.linkedin.com/in/adri%C3%A1n-scott-b64967172/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="chip-link" href="https://github.com/AdrianLScott" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+    <div class="facts">
+      <span><b>6+ yrs</b> React Native</span>
+      <span><b>10M+</b> users at Bitso</span>
+      <span><b>2M+</b> at SkyAlert</span>
+      <span><b>Ex-Engineering Manager</b> mobile · backend · IoT</span>
+      <span>English · Español</span>
+    </div>
+  </header>
+
+  <section class="stack" aria-labelledby="shipped">
+    <span class="eyebrow">Shipped in production</span>
+    <h2 id="shipped">Work at scale</h2>
+    <div class="jobs">
+      <article class="job">
+        <div class="meta">2021 – 2025 · Mobile Dev → Engineering Manager</div>
+        <h3><a href="https://play.google.com/store/apps/details?id=com.disappster.skyalert&amp;hl=es_MX" target="_blank" rel="noopener">SkyAlert ↗</a></h3>
+        <p>Mexico's leading real-time seismic alert app. When an earthquake hits, the alert has to arrive in seconds.</p>
+        <div class="metrics">
+          <div class="metric">2M+<small>users</small></div>
+          <div class="metric">3.8 → 4.6<small>app store rating</small></div>
+        </div>
+        <ul>
+          <li>Built core features in React Native with native Kotlin/Swift modules</li>
+          <li>Led mobile, backend and IoT teams; guided architecture through major changes</li>
+          <li>Node.js services on AWS (ECS, Lambda, SNS/SQS), CI/CD with TDD/BDD</li>
+          <li>A/B tests and gradual rollouts with Firebase Remote Config</li>
+        </ul>
+        <figure class="phone">
+          <div class="screen"><video src="media/skyalert-demo.mp4" poster="media/skyalert-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="SkyAlert earthquake alert screen with live map and countdown"></video></div>
+          <figcaption>Live alert screen: map, countdown, origin</figcaption>
+        </figure>
+      </article>
+      <article class="job">
+        <div class="meta">2026 · Software Engineer, Identity &amp; Access</div>
+        <h3><a href="https://bitso.com/" target="_blank" rel="noopener">Bitso ↗</a></h3>
+        <p>Latin America's leading crypto and fintech platform, in an international, English-speaking team.</p>
+        <div class="metrics">
+          <div class="metric">10M+<small>users</small></div>
+        </div>
+        <ul>
+          <li>Implemented Keycloak-based SSO to replace API-key access in Bitso Alpha</li>
+          <li>Contributed to KYC Refresh through a backend-for-frontend in the Bitso app</li>
+          <li>Led a Google Sign-Up MVP to cut registration drop-off, with Product, Customer Success and Fraud Prevention</li>
+          <li>Team Release Manager and on-call, using Datadog and Amplitude</li>
+          <li>AI-first workflow with Claude across React, React Native, Kotlin, Swift and Java</li>
+        </ul>
+        <figure class="phone">
+          <div class="screen"><video src="media/bitso-demo.mp4" poster="media/bitso-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="Linking an existing Bitso account to Google sign-in, from account choice to 2FA and home screen"></video></div>
+          <figcaption>Google account linking, test environment<br>(personal data blurred)</figcaption>
+        </figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="project" aria-labelledby="controla">
+    <div class="showcase">
+    <div class="stack">
+      <span class="eyebrow">Featured build · 2026 · Solo MVP, end to end</span>
+      <h2 id="controla">Controla: log expenses by voice</h2>
+      <p>A spending tracker where you tap an Android home-screen widget, say what you spent, and AI turns it into a structured record. I designed and built the app, the widget, the backend and the AI pipeline.</p>
+      <p><b>Why I built it:</b> Controla is my hands-on lab for going deep on AI engineering. Instead of following tutorials, I'm learning by shipping a real product end to end, putting each concept into production code: speech-to-text, structured outputs, schema validation, and treating model output as untrusted. Each new step on my learning path (evals, tool calling, streaming, on-device models) lands here as a feature.</p>
+      <div class="tags">
+        <span class="tag">Expo 54</span><span class="tag">React Native 0.81</span><span class="tag">Android widget</span><span class="tag">Node.js + TypeScript</span><span class="tag">Whisper</span><span class="tag">GPT-4o-mini</span><span class="tag">Zod</span><span class="tag">Supabase</span><span class="tag">Vercel</span>
+      </div>
+    </div>
+    <figure class="phone">
+      <div class="screen"><video src="media/controla-demo.mp4" poster="media/controla-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="Controla demo: recording two expenses from the home-screen widget, each appearing categorized in the app"></video></div>
+      <figcaption>Two expenses logged by voice from the widget</figcaption>
+    </figure>
+    </div>
+
+    <div class="flow" role="img" aria-label="Request flow: Android widget records audio, backend transcribes with Whisper, GPT-4o-mini extracts a JSON record, Zod validates it, Supabase stores it.">
+      <div class="flow-row">
+        <div class="node"><b>Widget</b><span>Tap to record, tap to stop. No app open.</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>API</b><span>Express on Vercel. Keys never ship in the app.</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>Whisper</b><span>Audio → transcript</span></div>
+        <div class="arrow">→</div>
+        <div class="node hl"><b>GPT-4o-mini</b><span>Transcript → JSON record</span></div>
+        <div class="arrow">→</div>
+        <div class="node hl"><b>Zod</b><span>Validate before it touches the DB</span></div>
+        <div class="arrow">→</div>
+        <div class="node"><b>Supabase</b><span>Postgres, amounts in cents</span></div>
+      </div>
+    </div>
+
+    <div class="trace">
+      <div class="box">
+        <div class="lbl">You say</div>
+        <div class="say">"spent 25 on uber with credit"</div>
+      </div>
+      <div class="to" aria-hidden="true">→</div>
+      <div class="box">
+        <div class="lbl">Stored record (example)</div>
+<pre>{ "amount": 2500,
+  "category": "Transport",
+  "payment_method": "Credit",
+  "description": "Uber ride" }</pre>
+      </div>
+    </div>
+
+    <figure class="code" style="margin:0">
+      <div class="code-head"><span>controla-be/src/services/ai.ts</span><span>excerpt</span></div>
+<pre><span class="k">const</span> ParsedSpendSchema = z.object({
+  amount: z.number().nonnegative(),
+  category: z.enum([<span class="s">'Food'</span>, <span class="s">'Transport'</span>, <span class="s">'Entertainment'</span>, <span class="s">'Health'</span>,
+                    <span class="s">'Shopping'</span>, <span class="s">'Utilities'</span>, <span class="s">'Other'</span>]),
+  payment_method: z.enum([<span class="s">'Cash'</span>, <span class="s">'Credit'</span>, <span class="s">'Debit'</span>, <span class="s">'Transfer'</span>]),
+  description: z.string().max(120),
+});
+
+<span class="k">export async function</span> parseSpendText(text: string): Promise&lt;ParsedMovement&gt; {
+  <span class="k">const</span> completion = <span class="k">await</span> openai.chat.completions.create({
+    model: <span class="s">'gpt-4o-mini'</span>,
+    temperature: 0,            <span class="c">// same input → same record</span>
+    max_tokens: 150,
+    messages: [{ role: <span class="s">'system'</span>, content: SYSTEM_PROMPT }, { role: <span class="s">'user'</span>, content: text }],
+  });
+
+  <span class="k">const</span> result = ParsedSpendSchema.safeParse(JSON.parse(raw));
+  <span class="k">if</span> (!result.success) <span class="k">throw new</span> Error(<span class="s">`AI response failed validation`</span>);
+
+  <span class="k">return</span> { ...result.data, amount: Math.round(result.data.amount * 100) }; <span class="c">// cents</span>
+}</pre>
+    </figure>
+
+    <div class="decisions">
+      <div class="decision"><h3>Treat model output as untrusted input</h3><p>Every response is parsed and validated against a closed schema. Anything off-contract fails loudly instead of writing bad data.</p></div>
+      <div class="decision"><h3>Keep AI on the server</h3><p>The app sends audio or text; only the backend talks to OpenAI. No keys in the bundle, and the model can change without an app release.</p></div>
+      <div class="decision"><h3>Constrain, then default</h3><p>Fixed category and payment enums, temperature 0, and explicit fallbacks ("Other", "Cash") when the user leaves something out.</p></div>
+      <div class="decision"><h3>Capture without friction</h3><p>A home-screen widget with a two-state recording flow, so logging a purchase takes seconds and never requires opening the app.</p></div>
+    </div>
+    <p class="next">Next: an eval set of real phrases with expected records to catch regressions when the prompt or model changes, plus tests for the parsing layer.</p>
+  </section>
+
+  <section class="project showcase" aria-labelledby="chat">
+    <div class="stack">
+      <span class="eyebrow">Code sample · 2024 · Public repo</span>
+      <h2 id="chat">chat-trashlab: a messaging app in a week</h2>
+      <p>A take-home built with Expo Router and TypeScript: conversation list, chat screen, reactions and image messages. Each feature landed as its own pull request (TL-01 to TL-05), with Jest tests for providers and components, and a README that explains the architecture, design choices and trade-offs.</p>
+      <div class="tags"><span class="tag">Expo Router</span><span class="tag">TypeScript</span><span class="tag">Jest</span><span class="tag">Testing Library</span><span class="tag">Custom components</span></div>
+    <div class="links">
+      <a class="chip-link" href="https://github.com/AdrianLScott/chat-trashlab" target="_blank" rel="noopener">View code ↗</a>
+    </div>
+    </div>
+    <figure class="phone">
+      <div class="screen"><video src="media/chat-demo.mp4" poster="media/chat-poster.jpg" muted loop playsinline controls preload="metadata" aria-label="chat-trashlab demo: contacts, chat, reactions and image messages"></video></div>
+      <figcaption>Demo recorded on Android</figcaption>
+    </figure>
+  </section>
+
+  <section class="project" aria-labelledby="agents">
+    <div class="stack">
+      <span class="eyebrow">How I work with AI agents</span>
+      <h2 id="agents">Guardrails before generation</h2>
+      <p>On a production operations system I built for a small business (catalog, manufacturing, purchasing and sales), I set up the repository so AI agents work inside clear rules. Each module has documented invariants and a playbook, and every change has to declare its blast radius before any code is written. Business details are private, so here is the pattern.</p>
+    </div>
+    <div class="doc" aria-label="Excerpt of the AGENTS.md working agreement">
+<span class="h"># AI Working Agreement</span><br>
+Before changing any module, read that module's invariants and playbook docs first.<br><br>
+<span class="h">## Pre-change Checklist (Mandatory)</span><br>
+For any implementation task, the assistant must state:<br>
+1. Which module is being changed.<br>
+2. Which entities/tables are impacted.<br>
+3. Which service/function boundary will handle writes.<br>
+4. Whether stock/pricing/BOM side effects are involved.<br><br>
+If unclear, ask for clarification before coding.
+    </div>
+    <p class="next">Result: 48 test files, versioned database migrations, and architecture decision records, so speed from AI never meant losing track of business rules.</p>
+  </section>
+
+  <section class="stack" aria-labelledby="now">
+    <span class="eyebrow">Now · November 2026</span>
+    <h2 id="now">What I'm focused on</h2>
+    <div class="skills">
+      <div><h3>Learning</h3><p>Going deep on AI engineering in TypeScript: evals, tool calling, streaming and agents, each one shipped into Controla rather than left in a tutorial.</p></div>
+      <div><h3>Interested in</h3><p>AI features inside mobile apps, on-device models that work offline and keep data private, and agents that automate real workflows.</p></div>
+      <div><h3>Looking for</h3><p>A senior mobile or product engineering role, remote from Mexico, where AI is part of the product and not just a demo.</p></div>
+    </div>
+  </section>
+
+  <section class="stack" aria-labelledby="skills">
+    <span class="eyebrow">Toolbox</span>
+    <h2 id="skills">What I bring</h2>
+    <div class="skills">
+      <div><h3>Mobile</h3><p>React Native, Expo, TypeScript, native Kotlin/Swift modules, Android widgets, OTA updates, release management</p></div>
+      <div><h3>Backend &amp; cloud</h3><p>Node.js, Express, Supabase/Postgres, MySQL, MongoDB, AWS (ECS, Lambda, SNS/SQS, S3, CloudFront), GCP/Firebase</p></div>
+      <div><h3>AI &amp; product</h3><p>LLM features with structured outputs, Whisper, agentic coding with Claude, A/B tests, rollouts, Datadog, Amplitude</p></div>
+    </div>
+  </section>
+
+  <hr>
+  <footer>
+    <p>Open to senior mobile and product engineering roles, remote from Mexico.</p>
+    <div class="links">
+      <a class="chip-link" href="https://www.linkedin.com/in/adri%C3%A1n-scott-b64967172/" target="_blank" rel="noopener">Message me on LinkedIn ↗</a>
+      <a class="chip-link" href="https://github.com/AdrianLScott" target="_blank" rel="noopener">GitHub ↗</a>
+    </div>
+  </footer>
+</main>
+
+</body>
+</html>
