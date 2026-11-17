@@ -61,6 +61,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 
 /* Hero */
 .hero { display: grid; gap: 20px; }
+.avatar { width: 104px; height: 104px; border-radius: 50%; object-fit: cover; border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--line); }
 .role { font-family: var(--font-display); font-size: 1.25rem; color: var(--accent); font-weight: 600; }
 .links { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip-link { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); text-decoration: none; font-weight: 500; font-size: 0.92rem; }
@@ -147,6 +148,7 @@ footer { color: var(--muted); font-size: 0.9rem; display: grid; gap: 10px; }
 <main class="wrap">
 
   <header class="hero">
+    <img class="avatar" src="media/avatar.jpg" alt="Adrián Lizárraga Scott" width="104" height="104">
     <span class="eyebrow">Mazatlán, México · Remote · UTC−7</span>
     <h1>Adrián Lizárraga Scott</h1>
     <div class="role">Senior Mobile &amp; Product Engineer</div>
